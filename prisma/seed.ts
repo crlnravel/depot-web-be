@@ -5,25 +5,15 @@ const prisma = new PrismaClient();
 
 async function main() {
   // create two dummy articles
-  const post1 = await prisma.user.upsert({
-    where: { email: 'carlravel@gmail.com' },
+  const user = await prisma.user.upsert({
+    where: { email: 'admin@admin.com' },
     update: {},
     create: {
-      email: 'carleanoravel@gmail.com',
-      name: 'Carleano Ravelza Wongso',
+      email: 'admin@admin.com',
+      name: 'Admin',
+      password: '$2a$10$crC9lsNi/38rCXAhYGp3xOIp4wy5Nx6zRglhYHbIYpjUzU32psZ9K',
     },
   });
-
-  const post2 = await prisma.user.upsert({
-    where: { email: 'tesuser@user.com' },
-    update: {},
-    create: {
-      email: 'tesuser@user.com',
-      name: 'User Pertama',
-    },
-  });
-
-  console.log({ post1, post2 });
 }
 
 // execute the main function
