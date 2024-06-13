@@ -10,7 +10,7 @@ async function main() {
     create: {
       email: 'admin@admin.com',
       name: 'Admin',
-      password: '$2a$10$QLkf8Y7osfcPlBjkWhBaeetixruf85hqJjfWdRB8Nf0diwkaqLNhK',
+      password: '$2b$10$rJXLROsBKpNAuv5vLfRoluntb93n0tZD.ChrDXenGTNt8O.hWsHr2',
     },
   });
 
