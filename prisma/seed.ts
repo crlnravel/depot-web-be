@@ -4,16 +4,17 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  // create two dummy articles
   const user = await prisma.user.upsert({
     where: { email: 'admin@admin.com' },
     update: {},
     create: {
       email: 'admin@admin.com',
       name: 'Admin',
-      password: '$2a$10$crC9lsNi/38rCXAhYGp3xOIp4wy5Nx6zRglhYHbIYpjUzU32psZ9K',
+      password: '$2a$10$QLkf8Y7osfcPlBjkWhBaeetixruf85hqJjfWdRB8Nf0diwkaqLNhK',
     },
   });
+
+  console.log(user);
 }
 
 // execute the main function
