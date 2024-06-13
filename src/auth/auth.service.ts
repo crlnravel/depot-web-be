@@ -18,9 +18,6 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    console.log(pass);
-    console.log(await bcrypt.compare(pass, user.password));
-
     const isPasswordValid = await bcrypt.compare(pass, user.password);
 
     if (!isPasswordValid) {
