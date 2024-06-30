@@ -11,6 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login-user.dto';
 import { AuthGuard } from './auth.guard';
+import { RegisterDto } from './dto/register-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,17 +24,20 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Post('register')
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.register(
+      registerDto.email,
+      registerDto.name,
+      registerDto.password,
+    );
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Post('verify-token')
   @UseGuards(AuthGuard)
   verifyToken() {
     return HttpStatus.OK;
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Get('tes')
-  @UseGuards(AuthGuard)
-  tes(@Query() nama: String) {
-    return 'Halo ' + nama;
   }
 
   @HttpCode(HttpStatus.OK)

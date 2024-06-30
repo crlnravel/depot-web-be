@@ -8,14 +8,21 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    return this.prisma.user.create({
+      data: {
+        email: createUserDto.email,
+        name: createUserDto.name,
+        password: createUserDto.password,
+        role: 'USER',
+      },
+    });
   }
 
   findAll() {
     return this.prisma.user.findMany();
   }
 
-  findByEmail(email: string) {
+  async findByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: {
         email: email,
