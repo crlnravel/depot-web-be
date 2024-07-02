@@ -1,14 +1,22 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 
 import * as bcrypt from 'bcrypt';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async login(email: string, pass: string) {
@@ -27,8 +35,15 @@ export class AuthService {
     const payload = { email: user.email, name: user.name, role: user.role };
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync(payload, {
+        expiresIn: '24h',
+      }),
     };
+  }
+
+  async logout(token: string) {
+    // Set for blacklisted token so that users cannot access the web with same token
+    await this.cacheManager.set(token, 'blacklisted', 86_400_000);
   }
 
   async register(email: string, name: string, pass: string) {
