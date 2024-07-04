@@ -18,14 +18,28 @@ model User {
   email    String    @unique
   name     String
   password String
-  role     String
-  Payment  Payment[]
+  role     Role
+  alamat   String    @default("")
+  payments Payment[]
 }
 
 model Payment {
-  id              String   @id @default(uuid())
-  transaction_amt Decimal
-  date            DateTime @default(now())
-  user            User     @relation(fields: [userId], references: [id])
-  userId          Int
+  id        String        @id
+  amount    Decimal
+  timestamp DateTime      @default(now())
+  user      User          @relation(fields: [userId], references: [id])
+  channel   String
+  status    PaymentStatus
+  userId    Int
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
 }

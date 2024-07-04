@@ -73,36 +73,4 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload),
     };
   }
-
-  async changeName(email: string, name: string) {
-    const user = await this.usersService.findByEmail(email);
-
-    if (!user) {
-      throw new BadRequestException();
-    }
-
-    this.usersService.update(user.id, { name: name });
-  }
-
-  async changePassword(
-    email: string,
-    oldPassword: string,
-    newPassword: string,
-  ) {
-    const user = await this.usersService.findByEmail(email);
-
-    if (!user) {
-      throw new BadRequestException();
-    }
-
-    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
-
-    if (!isPasswordValid) {
-      throw new UnauthorizedException();
-    }
-
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-    this.usersService.update(user.id, { password: hashedPassword });
-  }
 }

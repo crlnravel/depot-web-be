@@ -1,6 +1,6 @@
 import {
   Body,
-  Controller,
+  Controller, Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -15,8 +15,7 @@ import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -25,12 +24,13 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('logout')
+  @Get('logout')
+  @UseGuards(AuthGuard)
   logout(@Req() request: Request) {
     return this.authService.logout(request['user']);
   }
 
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   @Post('register')
   register(@Body() registerDto: RegisterDto) {
     return this.authService.register(
@@ -45,12 +45,5 @@ export class AuthController {
   @UseGuards(AuthGuard)
   verifyToken() {
     return HttpStatus.OK;
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Post('kualitas-air')
-  @UseGuards(AuthGuard)
-  ubahKualitasAir(@Body() obj) {
-    return 'Sukses';
   }
 }

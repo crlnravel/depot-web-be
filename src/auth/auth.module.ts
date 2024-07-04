@@ -14,7 +14,6 @@ import { CacheModule } from '@nestjs/cache-manager';
       secret: 'DUMMY SECRET',
       signOptions: { expiresIn: '60s' },
     }),
-    CacheModule.register(),
   ],
   controllers: [AuthController],
   providers: [AuthService],

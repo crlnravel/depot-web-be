@@ -8,9 +8,18 @@ import { AuthModule } from './auth/auth.module';
 import { APP_PIPE } from '@nestjs/core';
 import { PaymentsController } from './payments/payments.controller';
 import { PaymentsService } from './payments/payments.service';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, PrismaModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    PrismaModule,
+    AuthModule,
+    CacheModule.register({
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController, PaymentsController],
   providers: [
     AppService,
@@ -21,6 +30,4 @@ import { PaymentsService } from './payments/payments.service';
     PaymentsService,
   ],
 })
-export class AppModule {
-  
-}
+export class AppModule {}
