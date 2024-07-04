@@ -27,10 +27,22 @@ model Payment {
   id        String        @id
   amount    Decimal
   timestamp DateTime      @default(now())
-  user      User          @relation(fields: [userId], references: [id])
-  channel   String
   status    PaymentStatus
+  user      User          @relation(fields: [userId], references: [id])
   userId    Int
+  product   Product       @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  price       Decimal
+  stock       Int
+  category    Category
+  kualitasAir KualitasAir
+  payments    Payment[]
 }
 
 enum Role {
@@ -42,4 +54,17 @@ enum PaymentStatus {
   PENDING
   SUCCESS
   FAILED
+}
+
+enum Category {
+  GALON_BARU
+  GALON_ISI_ULANG
+  REFILL_AIR_MINUM
+}
+
+enum KualitasAir {
+  SANGAT_BAIK
+  BAIK
+  CUKUP
+  BURUK
 }

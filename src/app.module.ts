@@ -12,7 +12,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
     PrismaModule,
     AuthModule,
