@@ -27,7 +27,7 @@ export class AuthController {
   @Get('logout')
   @UseGuards(AuthGuard)
   logout(@Req() request: Request) {
-    return this.authService.logout(request['user']);
+    return this.authService.logout(request['user']['token']);
   }
 
   @HttpCode(HttpStatus.CREATED)
