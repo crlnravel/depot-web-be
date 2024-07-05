@@ -7,13 +7,12 @@ import {
   Delete,
   UseGuards,
   HttpStatus,
-  HttpCode, Post,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 import { AuthGuard } from '../auth/auth.guard';
-import { SetAlamatDto } from './dto/set-alamat.dto';
 
 @Controller('users')
 @UseGuards(AuthGuard)
@@ -33,9 +32,9 @@ export class UsersController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Patch()
-  update(@Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateProfile(updateUserDto);
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateProfile(+id, updateUserDto);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -54,11 +53,5 @@ export class UsersController {
   @Get('alamat/:id')
   getAlamat(@Param('id') id: string) {
     return this.usersService.getAlamat(+id);
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Post('alamat/:id')
-  setAlamat(@Param('id') id: string, @Body() setAlamatDto: SetAlamatDto) {
-    return this.usersService.setAlamat(+id, setAlamatDto);
   }
 }
