@@ -43,6 +43,7 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload, {
         expiresIn: '24h',
       }),
+      alamat: user.alamat,
     };
   }
 

@@ -108,6 +108,6 @@ export class UsersService {
       throw new BadRequestException();
     }
 
-    return user.alamat;
+    return { alamat: user.alamat };
   }
 }
