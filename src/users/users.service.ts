@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
+import { SetAlamatDto } from './dto/set-alamat.dto';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +27,14 @@ export class UsersService {
 
   findAll() {
     return this.prisma.user.findMany();
+  }
+
+  findById(id: number) {
+    return this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
   async findByEmail(email: string) {
@@ -89,6 +98,33 @@ export class UsersService {
       },
       data: {
         password: hashedPassword,
+      },
+    });
+  }
+
+  async getAlamat(id: number) {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new BadRequestException();
+    }
+
+    return user.alamat;
+  }
+
+  async setAlamat(id: number, setAlamatDto: SetAlamatDto) {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new BadRequestException('No such user');
+    }
+
+    return this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        alamat: setAlamatDto.alamat,
       },
     });
   }

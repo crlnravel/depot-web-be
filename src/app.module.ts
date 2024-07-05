@@ -9,6 +9,7 @@ import { APP_PIPE } from '@nestjs/core';
 import { PaymentsController } from './payments/payments.controller';
 import { PaymentsService } from './payments/payments.service';
 import { CacheModule } from '@nestjs/cache-manager';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     CacheModule.register({
       isGlobal: true,
     }),
+    PaymentsModule,
   ],
   controllers: [AppController, PaymentsController],
   providers: [

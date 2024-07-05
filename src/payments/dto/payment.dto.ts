@@ -1,12 +1,12 @@
-import { IsDate, IsDecimal, IsNotEmpty } from 'class-validator';
+import { IsDate, IsDecimal, IsEmail, IsNotEmpty } from 'class-validator';
 
-export class Payment {
+export class PaymentDto {
   @IsNotEmpty()
   id: string;
 
   @IsDecimal()
-  transaction_amt: number;
+  amount: number;
 
-  @IsDate()
-  date: Date;
+  @IsEmail()
+  userEmail: string;
 }

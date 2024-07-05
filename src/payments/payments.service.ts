@@ -1,5 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Snap } from 'midtrans-client';
+import uniqid from 'uniqid';
+import { UsersService } from '../users/users.service';
+import { PaymentDto } from './dto/payment.dto';
 
 @Injectable()
 export class PaymentsService {
@@ -9,10 +12,16 @@ export class PaymentsService {
     clientKey: process.env.MIDTRANS_CLIENT_KEY,
   });
 
-  constructor() {}
+  constructor(private usersService: UsersService) {}
 
-  async createPayment() {
+  async createPayment(paymentDto: PaymentDto) {
+    const user = await this.usersService.findByEmail(paymentDto.userEmail);
 
+    if (!user) {
+      throw new BadRequestException('No such user');
+    }
+
+    const oid = uniqid('');
 
     return await this.snap.createTransactionToken({
       transaction_details: {
