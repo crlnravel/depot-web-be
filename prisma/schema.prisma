@@ -26,6 +26,7 @@ model User {
 model Payment {
   id        String        @id
   amount    Decimal
+  quantity  Int
   timestamp DateTime      @default(now())
   status    PaymentStatus
   user      User          @relation(fields: [userId], references: [id])

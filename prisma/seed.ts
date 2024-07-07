@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { $Enums, PrismaClient } from '@prisma/client';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -11,7 +11,7 @@ async function main() {
       email: 'admin@admin.com',
       name: 'Admin',
       password: '$2b$10$rJXLROsBKpNAuv5vLfRoluntb93n0tZD.ChrDXenGTNt8O.hWsHr2',
-      role: 'ADMIN',
+      role: $Enums.Role.ADMIN,
     },
   });
 

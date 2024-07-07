@@ -5,11 +5,13 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { PaymentsController } from './payments/payments.controller';
 import { PaymentsService } from './payments/payments.service';
 import { CacheModule } from '@nestjs/cache-manager';
 import { PaymentsModule } from './payments/payments.module';
+import { ProductsModule } from './products/products.module';
+import { RolesGuard } from './auth/roles.guard';
 
 @Module({
   imports: [
@@ -21,6 +23,7 @@ import { PaymentsModule } from './payments/payments.module';
       isGlobal: true,
     }),
     PaymentsModule,
+    ProductsModule,
   ],
   controllers: [AppController, PaymentsController],
   providers: [
@@ -30,6 +33,10 @@ import { PaymentsModule } from './payments/payments.module';
       useClass: ValidationPipe,
     },
     PaymentsService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}
