@@ -1,4 +1,11 @@
-import { IsDateString, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsDecimal,
+  IsEnum,
+  IsInt,
+  IsNotEmpty, IsNumberString,
+  IsString,
+} from 'class-validator';
 
 export enum Status {
   CAPTURE = 'capture',
@@ -23,12 +30,20 @@ export class MidtransNotificationDto {
   transaction_status: Status;
 
   @IsNotEmpty()
+  @IsNumberString()
+  status_code: number;
+
+  @IsNotEmpty()
+  @IsDecimal()
+  gross_amount: string;
+
+  @IsNotEmpty()
   @IsString()
   fraud_status: string;
 
   @IsNotEmpty()
   @IsString()
-  transaction_id: string;
+  order_id: string;
 
   @IsNotEmpty()
   @IsString()

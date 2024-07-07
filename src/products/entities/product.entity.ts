@@ -1,8 +1,4 @@
-import {
-  IsDecimal,
-  IsEnum,
-  IsInt,
-} from 'class-validator';
+import { IsDecimal, IsEnum, IsInt, IsString } from 'class-validator';
 import { Prisma, $Enums, Product } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -31,4 +27,16 @@ export class ProductEntity implements Product {
   @IsEnum($Enums.KualitasAir)
   @ApiProperty()
   kualitasAir: $Enums.KualitasAir;
+
+  @IsString()
+  @ApiProperty()
+  imgUrl: string;
+
+  @IsDecimal()
+  @ApiProperty()
+  rating: Prisma.Decimal;
+
+  @IsInt()
+  @ApiProperty()
+  totalRatings: number;
 }

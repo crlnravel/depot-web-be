@@ -1,14 +1,10 @@
-import { IsDecimal, IsEmail, IsInt } from 'class-validator';
+import { IsInt, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePaymentDto {
-  @IsDecimal()
+  @IsNumber()
   @ApiProperty()
-  amount: number;
-
-  @IsEmail()
-  @ApiProperty()
-  userEmail: string;
+  quantity: number;
 
   @IsInt()
   @ApiProperty()
