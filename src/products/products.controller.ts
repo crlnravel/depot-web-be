@@ -4,7 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Param,
+  Param, Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -33,7 +33,7 @@ export class ProductsController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post(':id/update')
+  @Patch(':id/update')
   @Roles($Enums.Role.ADMIN)
   updateProduct(
     @Param('id') id: string,
