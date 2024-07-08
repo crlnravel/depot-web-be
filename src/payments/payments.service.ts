@@ -6,11 +6,10 @@ import {
 import { Snap } from 'midtrans-client';
 import { v4 as uuidv4 } from 'uuid';
 import { md } from 'node-forge';
-import { UsersService } from '../users/users.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { ProductsService } from '../products/products.service';
-import { $Enums, Payment, Product, User } from '@prisma/client';
+import { $Enums, Payment, Prisma, Product, User } from '@prisma/client';
 import {
   MidtransNotificationDto,
   Status,
@@ -60,20 +59,47 @@ export class PaymentsService {
       },
     });
 
-    const transaction: PaymentEntity = await this.prisma.payment.create({
-      data: {
-        id: oid,
-        userId: user.id,
-        productId: product.id,
-        quantity: paymentDto.quantity,
-        amount: gross_amount,
-        status: $Enums.PaymentStatus.PENDING,
+    const payment: PaymentEntity = await this.prisma.$transaction(
+      async (tx) => {
+        // Step 1: Check product availability and lock the record
+        const product = await tx.product.findUnique({
+          where: { id: paymentDto.productId },
+          select: { id: true, stock: true, price: true },
+        });
+        if (!product || product.stock < paymentDto.quantity) {
+          throw new Error('Product not available');
+        }
+
+        // Step 2: Create payment record
+        const payment = await tx.payment.create({
+          data: {
+            id: oid,
+            userId: user.id,
+            productId: product.id,
+            quantity: paymentDto.quantity,
+            amount: gross_amount,
+            status: $Enums.PaymentStatus.PENDING,
+          },
+        });
+
+        // Step 3: Decrease stock
+        await tx.product.update({
+          where: { id: paymentDto.productId },
+          data: { stock: { decrement: paymentDto.quantity } },
+        });
+
+        return payment;
       },
-    });
+      {
+        isolationLevel: Prisma.TransactionIsolationLevel.Serializable, // Highest isolation level
+        maxWait: 5000, // 5 seconds max to acquire initial lock
+        timeout: 10000, // 10 seconds transaction timeout
+      },
+    );
 
     return {
       token: token,
-      payment: transaction,
+      payment: payment,
     };
   }
 

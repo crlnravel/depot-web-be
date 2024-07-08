@@ -52,7 +52,6 @@ export class PaymentsController {
   async midtransNotificationHandler(
     @Body() notificationDto: MidtransNotificationDto,
   ): Promise<void> {
-    console.log('KUONDOL');
     await this.paymentsService.midtransNotificationHandler(notificationDto);
   }
 }

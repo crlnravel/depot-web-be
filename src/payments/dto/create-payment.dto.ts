@@ -1,8 +1,8 @@
-import { IsInt, IsNumber } from 'class-validator';
+import { IsInt } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePaymentDto {
-  @IsNumber()
+  @IsInt()
   @ApiProperty()
   quantity: number;
 
