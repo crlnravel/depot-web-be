@@ -15,7 +15,7 @@ import { Roles } from '../auth/decorators/role.decorator';
 import { AuthGuard } from '../auth/auth.guard';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { MidtransNotificationDto } from './dto/midtrans-notification.dto';
-import { InitTokenDto } from './dto/init-token.dto';
+import { InitTokenResponseDto } from './dto/init-token-response.dto';
 import { PaymentEntity } from './entities/payment.entity';
 import { Request } from 'express';
 
@@ -39,7 +39,7 @@ export class PaymentsController {
   createPayment(
     @Req() request: Request,
     @Body() paymentDto: CreatePaymentDto,
-  ): Promise<InitTokenDto> {
+  ): Promise<InitTokenResponseDto> {
     return this.paymentsService.initPayment(request['user'], paymentDto);
   }
 

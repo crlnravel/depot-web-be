@@ -15,7 +15,7 @@ import {
   MidtransNotificationDto,
   Status,
 } from './dto/midtrans-notification.dto';
-import { InitTokenDto } from './dto/init-token.dto';
+import { InitTokenResponseDto } from './dto/init-token-response.dto';
 import { PaymentEntity } from './entities/payment.entity';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class PaymentsService {
   async initPayment(
     user: User,
     paymentDto: CreatePaymentDto,
-  ): Promise<InitTokenDto> {
+  ): Promise<InitTokenResponseDto> {
     const product: Product = await this.productsService.findById(
       paymentDto.productId,
     );
