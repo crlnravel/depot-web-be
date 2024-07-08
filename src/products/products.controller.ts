@@ -33,7 +33,7 @@ export class ProductsController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post(':id/update-stock')
+  @Post(':id/update')
   @Roles($Enums.Role.ADMIN)
   updateProduct(
     @Param('id') id: string,
