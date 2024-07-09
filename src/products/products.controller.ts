@@ -4,8 +4,8 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Param, Patch,
-  Post,
+  Param,
+  Patch,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
@@ -40,5 +40,11 @@ export class ProductsController {
     @Body() updateProductDto: UpdateProductDto,
   ): Promise<ProductEntity> {
     return this.productsService.updateProduct(+id, updateProductDto);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Patch(':id/rate')
+  updateRating(@Param('id') id: string, @Body('rating') update: number) {
+    return this.productsService.updateRating(+id, update);
   }
 }

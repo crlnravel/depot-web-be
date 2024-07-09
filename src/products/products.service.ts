@@ -33,4 +33,20 @@ export class ProductsService {
       },
     });
   }
+
+  updateRating(id: number, rating: number): Promise<ProductEntity> {
+    return this.prisma.product.update({
+      where: {
+        id: id,
+      },
+      data: {
+        totalRating: {
+          increment: rating,
+        },
+        totalPurchases: {
+          increment: 1,
+        },
+      },
+    });
+  }
 }

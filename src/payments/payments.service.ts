@@ -30,8 +30,16 @@ export class PaymentsService {
     private productsService: ProductsService,
   ) {}
 
-  async findAll(): Promise<Payment[]> {
+  async findAll(): Promise<PaymentEntity[]> {
     return this.prisma.payment.findMany();
+  }
+
+  async findById(id: string): Promise<PaymentEntity> {
+    return this.prisma.payment.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
   async initPayment(

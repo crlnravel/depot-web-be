@@ -36,17 +36,17 @@ model Payment {
 }
 
 model Product {
-  id           Int         @id @default(autoincrement())
-  name         String
-  description  String
-  price        Decimal
-  stock        Int
-  imgUrl       String      @default("")
-  rating       Decimal     @default(0)
-  totalRatings Int         @default(0)
-  category     Category
-  kualitasAir  KualitasAir
-  payments     Payment[]
+  id             Int         @id @default(autoincrement())
+  name           String
+  description    String
+  price          Decimal
+  stock          Int
+  imgUrl         String      @default("")
+  totalRating    Int         @default(0)
+  totalPurchases Int         @default(0)
+  category       Category
+  kualitasAir    KualitasAir
+  payments       Payment[]
 }
 
 enum Role {

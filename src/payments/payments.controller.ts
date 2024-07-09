@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -18,16 +19,34 @@ import { MidtransNotificationDto } from './dto/midtrans-notification.dto';
 import { InitTokenResponseDto } from './dto/init-token-response.dto';
 import { PaymentEntity } from './entities/payment.entity';
 import { Request } from 'express';
+import { ProductEntity } from '../products/entities/product.entity';
+import { ProductsService } from '../products/products.service';
 
 @Controller('payments')
 export class PaymentsController {
-  constructor(private paymentsService: PaymentsService) {}
+  constructor(
+    private paymentsService: PaymentsService,
+    private productService: ProductsService,
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
   @Roles($Enums.Role.ADMIN)
   findAll(): Promise<PaymentEntity[]> {
     return this.paymentsService.findAll();
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get(':id')
+  findById(@Param('id') id: string): Promise<PaymentEntity> {
+    return this.paymentsService.findById(id);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get(':id/product')
+  async findProductById(@Param('id') id: string): Promise<ProductEntity> {
+    const payment = await this.paymentsService.findById(id);
+    return this.productService.findById(payment.productId);
   }
 
   @HttpCode(HttpStatus.CREATED)

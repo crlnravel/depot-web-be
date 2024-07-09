@@ -32,11 +32,11 @@ export class ProductEntity implements Product {
   @ApiProperty()
   imgUrl: string;
 
-  @IsDecimal()
+  @IsInt()
   @ApiProperty()
-  rating: Prisma.Decimal;
+  totalRating: number;
 
   @IsInt()
   @ApiProperty()
-  totalRatings: number;
+  totalPurchases: number;
 }
