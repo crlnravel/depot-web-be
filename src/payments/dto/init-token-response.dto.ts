@@ -5,6 +5,6 @@ export class InitTokenResponseDto {
   @ApiProperty()
   token: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => PaymentEntity })
   payment: PaymentEntity;
 }

@@ -7,7 +7,7 @@ export class UpdateProductDto {
   @IsInt()
   stock: number;
 
-  @ApiProperty()
   @IsEnum($Enums.KualitasAir)
+  @ApiProperty({ enum: () => $Enums.KualitasAir })
   kualitasAir: $Enums.KualitasAir;
 }

@@ -7,17 +7,17 @@ export class PaymentEntity implements Payment {
   id: string;
 
   @IsDecimal()
-  @ApiProperty()
+  @ApiProperty({ type: String })
   amount: Prisma.Decimal;
 
   @ApiProperty()
   quantity: number;
 
   @IsEnum($Enums.PaymentStatus)
-  @ApiProperty()
+  @ApiProperty({ enum: () => $Enums.PaymentStatus })
   status: $Enums.PaymentStatus;
 
-  @ApiProperty()
+  @ApiProperty({ type: Date })
   timestamp: Date;
 
   @ApiProperty()

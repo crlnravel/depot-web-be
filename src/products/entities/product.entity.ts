@@ -13,7 +13,7 @@ export class ProductEntity implements Product {
   description: string;
 
   @IsDecimal()
-  @ApiProperty()
+  @ApiProperty({ type: String })
   price: Prisma.Decimal;
 
   @IsInt()
@@ -21,11 +21,11 @@ export class ProductEntity implements Product {
   stock: number;
 
   @IsEnum($Enums.Category)
-  @ApiProperty()
+  @ApiProperty({ enum: () => $Enums.Category })
   category: $Enums.Category;
 
   @IsEnum($Enums.KualitasAir)
-  @ApiProperty()
+  @ApiProperty({ enum: () => $Enums.KualitasAir })
   kualitasAir: $Enums.KualitasAir;
 
   @IsString()
