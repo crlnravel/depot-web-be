@@ -111,6 +111,17 @@ export class PaymentsService {
     };
   }
 
+  cancelPayment(oid: string) {
+    return this.prisma.payment.update({
+      where: {
+        id: oid,
+      },
+      data: {
+        status: $Enums.PaymentStatus.FAILED,
+      },
+    });
+  }
+
   async midtransNotificationHandler(
     notificationDto: MidtransNotificationDto,
   ): Promise<Payment> {

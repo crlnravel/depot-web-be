@@ -62,6 +62,13 @@ export class PaymentsController {
     return this.paymentsService.initPayment(request['user'], paymentDto);
   }
 
+  @HttpCode(HttpStatus.OK)
+  @Post(':id/cancel')
+  @Roles($Enums.Role.ADMIN)
+  async cancelPayment(@Param('id') id: string) {
+    return this.paymentsService.cancelPayment(id);
+  }
+
   /**
    * MIDTRANS NOTIFICATION HANDLER
    */
