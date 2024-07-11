@@ -18,6 +18,7 @@ async function main() {
   const products = await prisma.product.createMany({
     data: [
       {
+        id: 1,
         name: 'Aqua',
         description:
           'Aqua adalah merek air minum dalam kemasan yang terkenal di Indonesia. Airnya segar dan bermanfaat untuk kesehatan.',
@@ -31,6 +32,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 2,
         name: 'Oasis',
         description:
           'Oasis adalah merek air minum dalam kemasan dengan harga terjangkau dan kualitas yang baik.',
@@ -44,6 +46,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 3,
         name: 'Pristine',
         description:
           'Pristine adalah air mineral murni dari sumber alami yang diolah dengan teknologi canggih untuk menjaga kesegarannya.',
@@ -57,6 +60,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 4,
         name: 'Amidis',
         description:
           'Amidis adalah air minum berkualitas tinggi dengan kandungan mineral yang seimbang untuk memenuhi kebutuhan hidrasi harian.',
@@ -70,6 +74,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 5,
         name: 'Vit',
         description:
           'Vit adalah air minum yang mengandung vitamin tambahan untuk membantu memperkuat sistem kekebalan tubuh.',
@@ -83,6 +88,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 6,
         name: 'Isi Ulang - RO',
         description:
           'Isi ulang RO adalah air minum yang diproses menggunakan sistem Reverse Osmosis untuk kualitas air terbaik.',
@@ -95,6 +101,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 7,
         name: 'Isi Ulang - Biasa',
         description:
           'Isi ulang Biasa adalah air minum dalam kemasan praktis untuk kebutuhan sehari-hari dengan harga terjangkau.',
@@ -108,6 +115,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 8,
         name: 'Air Minum - 500ml',
         description:
           'Air Minum 500ml adalah air minum dalam kemasan praktis untuk konsumsi segera.',
@@ -121,6 +129,7 @@ async function main() {
         kualitasAir: $Enums.KualitasAir.BAIK,
       },
       {
+        id: 9,
         name: 'Air Minum - 1L',
         description:
           'Air Minum 1L adalah air minum dalam kemasan praktis dengan ukuran yang cocok untuk dibawa bepergian.',
