@@ -64,7 +64,6 @@ export class PaymentsController {
 
   @HttpCode(HttpStatus.OK)
   @Post(':id/cancel')
-  @Roles($Enums.Role.ADMIN)
   async cancelPayment(@Param('id') id: string) {
     return this.paymentsService.cancelPayment(id);
   }
