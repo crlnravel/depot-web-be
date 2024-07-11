@@ -112,6 +112,10 @@ export class PaymentsService {
   }
 
   cancelPayment(oid: string) {
+    if (!this.findById(oid)) {
+      throw new BadRequestException('No Payment Found!');
+    }
+
     return this.prisma.payment.update({
       where: {
         id: oid,
