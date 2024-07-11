@@ -111,8 +111,8 @@ export class PaymentsService {
     };
   }
 
-  cancelPayment(oid: string) {
-    if (!this.findById(oid)) {
+  async cancelPayment(oid: string) {
+    if (!(await this.findById(oid))) {
       throw new BadRequestException('No Payment Found!');
     }
 
