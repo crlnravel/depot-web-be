@@ -28,7 +28,7 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findByEmail(id);
+    return this.usersService.findById(+id);
   }
 
   @HttpCode(HttpStatus.OK)
